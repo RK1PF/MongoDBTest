@@ -13,7 +13,7 @@ async function run() {
         const fruitsCollection = database.collection('fruits');
         // appel de la fonction findAll en async
         await findAll(fruitsCollection);
-
+        // await insertMany(fruitsCollection, { name: "Coconut", score: 8, review: "Great fruit" },{ name: "Mango", score: 10, review: "Great fruit" })
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
@@ -30,14 +30,14 @@ async function findAll(collection){
             console.log(fruit);
         });
 }
-async function insertMany(){
-    const docs = [
-        { name: "Apple", score: 8, review: "Great fruit" },
-        { name: "Orange", score: 6, review: "Kinda sour" },
-        { name: "Banana", score: 9, review: "Great stuff!" }
-    ];
-    // Insert many docs
-    const result = await fruitsCollection.insertMany(docs);
+async function insertMany(collection, ...docs){
+    // const docs = [ syntax
+    //     { name: "Apple", score: 8, review: "Great fruit" },
+    //     { name: "Orange", score: 6, review: "Kinda sour" },
+    //     { name: "Banana", score: 9, review: "Great stuff!" }
+    // ];
+    // Insert many docs into fruitsCollection
+    const result = await collection.insertMany(docs);
     console.log(`${result.insertedCount} documents were inserted`);
 }
 
